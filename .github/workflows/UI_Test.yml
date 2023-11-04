@@ -8,6 +8,66 @@ env:
   REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
 
 jobs:
+  Setup-and-Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code #loads repo into action
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements/requirements.txt
+
+      - name: Build
+        run: |
+          set -e  # Exit immediately if any command fail
+          start=$(date +%s) #start the timer
+          timeout 50m time make build
+          end=$(date +%s) #end timer
+          seconds=$((end-start))  #calc build time in sec
+          elapsed=$(echo "scale=2; ($end - $start) / 60.0" | bc) #get time in min with dec
+          min=${elapsed%.*}  #extract min part
+          sec_cut=${elapsed#*.} #get the decimal
+          sec_round="${sec_cut:0:1}.${sec_cut:1}"
+          sec=$(echo "$sec_round * 6" | bc -l) #calc secs
+          echo "$(min)m$(sec)s" > ./time.txt #send to file for use in diff run
+          IMAGE=$(docker images --format "{{.Repository}}:{{.Tag}}" | head -n 1) #get built image
+          echo "Image = $IMAGE"
+          echo $IMAGE > ./image.txt
+
+      - name: Push Beta Version
+        run: |
+          IMAGE=$(docker images --format "{{.Repository}}:{{.Tag}}" | head -n 1)
+          docker run  -d --name stable $IMAGE
+          REGISTRY=$(cat base/ope_book_registry)
+          REGISTRY_USER=$(cat base/ope_registry_user)
+          echo $REGISTRY $REGISTRY_USER
+          docker login $REGISTRY -u $REGISTRY_USER -p $REGISTRY_PASSWORD
+          TIME=$(cat time.txt)
+          SIZE=$(docker images --format "{{.Size}}" | head -n 1)
+          make push TIME="$TIME" SIZE="$SIZE"
+          docker stop stable
+
+      - name: Upload Image
+        uses: actions/upload-artifact@v3
+        with:
+          name: image
+          path: |
+            image.txt
+
+      - name: Upload Time
+        uses: actions/upload-artifact@v3
+        with:
+          name: time
+          path: |
+            time.txt
+
+            
   JupyterNB-Test:
     needs: Setup-and-Build
     runs-on: ubuntu-latest
