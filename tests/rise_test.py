@@ -40,9 +40,9 @@ def test_rise_extension(token):
     driver = setup_driver()
     url = f"http://127.0.0.1:8888/lab?token={token}"
 
-
     try:
         driver.get(url)
+        driver.implicitly_wait(45)
         # Main actions and interactions
         take_screenshot(driver, 'main_screenshot.png')
         find_element_and_click(driver, '//div[@data-category="Notebook"]')
@@ -51,7 +51,7 @@ def test_rise_extension(token):
         find_element_and_click(driver, '//button[@data-command="RISE:preview"]')
         take_screenshot(driver, 'rise_screenshot.png')
 
-        toolbar = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@class='lm-Widget p-Widget jp-Toolbar' and @role='navigation']")))
+        toolbar = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//div[@class='lm-Widget jp-Toolbar' and @role='navigation']")))
         if toolbar:
             fullscreen_button = toolbar.find_element(By.XPATH, ".//button[@title='Open the slideshow in full screen']")
             fullscreen_button.click()
