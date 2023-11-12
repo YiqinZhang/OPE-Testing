@@ -1,2 +1,5 @@
 *~
-
+tests/.ipynb_checkpoints/
+tests/*.png
+tests/Untitled.ipynb
+tests/downloaded_notebook.ipynb
