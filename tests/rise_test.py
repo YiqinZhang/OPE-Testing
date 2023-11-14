@@ -21,11 +21,13 @@ def setup_driver():
 
 def find_element_and_click(driver, xpath):
     try:
-        element = driver.find_element(By.XPATH, xpath)
+        element = WebDriverWait(driver, 15).until(
+            EC.element_to_be_clickable((By.XPATH, xpath))
+        )
         element.click()
         return element
-    except NoSuchElementException as e:
-        print(f"Error finding or clicking element: {e}")
+    except Exception as e:
+        print(f"Error finding/clicking element: {e}")
         return None
 
 

@@ -41,6 +41,7 @@ def open_jupyter_notebook(url, notebook_name, driver):
         )
         notebook.click()  # JavaScript click for double-click action
         driver.execute_script("arguments[0].dispatchEvent(new MouseEvent('dblclick', {bubbles: true, cancelable: true, view: window}));", notebook)
+        print(f"File '{notebook_name}' opened successfully.")
     except Exception as e:
         print(f"Error: {e}")
 
@@ -51,7 +52,7 @@ def take_screenshot(driver, filename):
     except Exception as e:
         print(f"Error taking screenshot: {e}")
 
-def find_and_click(driver, xpath):
+def find_element_and_click(driver, xpath):
     try:
         element = WebDriverWait(driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, xpath))
@@ -79,20 +80,20 @@ def test_rise(token, notebook_github_url, local_notebook_name):
         
         if is_launcher_page:
             print("On the Launcher page")
-            find_and_click(driver, '//div[@data-category="Notebook"]')
-        # else:
-        #     print("Not on the Launcher page, trying to open the notebook directly")
-        #     notebook = WebDriverWait(driver, 30).until(
-        #         EC.element_to_be_clickable((By.XPATH, f"//span[contains(text(), '{local_notebook_name}')]"))
-        #     )
-        #     notebook.click()      
+            find_element_and_click(driver, '//div[@data-category="Notebook"]')
+        else:
+            print("Not on the Launcher page, trying to open the notebook directly")
+            notebook = WebDriverWait(driver, 30).until(
+                EC.element_to_be_clickable((By.XPATH, f"//span[contains(text(), '{local_notebook_name}')]"))
+            )
+            notebook.click()      
                  
         take_screenshot(driver, 'new_nb_screenshot.png')
 
-        find_and_click(driver, '//button[@data-command="RISE:preview"]')        
+        find_element_and_click(driver, '//button[@data-command="RISE:preview"]')        
         take_screenshot(driver, 'rise_screenshot.png')
 
-        fullscreen_button = find_and_click(driver, ".//button[@title='Open the slideshow in full screen']")
+        fullscreen_button = find_element_and_click(driver, ".//button[@title='Open the slideshow in full screen']")
         is_fullscreen = driver.execute_script("return document.fullscreenElement !== null")
         print("Fullscreen button is functioning")
 
@@ -100,7 +101,8 @@ def test_rise(token, notebook_github_url, local_notebook_name):
         # Clean up  
         driver.switch_to.window(driver.window_handles[0])
         driver.refresh()
-        # driver.quit()
+        WebDriverWait(driver, 30)      
+        driver.quit()
 
 if __name__ == "__main__":
     if len(sys.argv) <= 1:
