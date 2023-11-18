@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import platform
 import sys
+import os
 
 def setup_driver():
     chrome_options = Options()
@@ -31,6 +32,18 @@ def create_jupyter_notebook_from_github(github_url, local_file_name):
         print(f"Notebook created: {local_file_name}")
     except requests.RequestException as e:
         print(f"Failed to download the notebook: {e}")
+
+def download_image(image_url, local_img_path):
+    response = requests.get(image_url, stream=True)
+
+    if response.status_code == 200:
+        os.makedirs(os.path.dirname(local_img_path), exist_ok=True)
+        with open(local_img_path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=128):
+                f.write(chunk)
+        print(f"Image downloaded successfully: {local_img_path}")
+    else:
+        print(f"Failed to download the image: {image_url}")
 
 def open_jupyter_notebook(url, notebook_name, driver):
     try:
@@ -109,5 +122,7 @@ if __name__ == "__main__":
         print("Usage: python script.py <token>")
     else:
         notebook_github_url = "https://raw.githubusercontent.com/OPEFFORT/ope-project/main/content/test_book/02_slides_template/layout_example.ipynb"
+        image_url = 'https://raw.githubusercontent.com/YiqinZhang/ope-project/e9ea65fa2317b3c39d70984875ce2885dde8e599/content/images/sample-image.jpg'
         local_notebook_name = "downloaded_notebook.ipynb"
+        local_img_path='../images/sample-image.jpg'
         test_rise(sys.argv[1], notebook_github_url, local_notebook_name)
