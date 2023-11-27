@@ -48,16 +48,31 @@ We employ Selenium for the RISE test to simulate opening a Jupyter Notebook file
 To effectively test RISE functionality within Jupyter Lab, our process involves the following steps:
 
 1. **Retrieve Jupyter Lab Token:** First, obtain a `token` from a Jupyter Lab instance.
+![Screenshot 2023-11-27 at 14 56 42](https://github.com/YiqinZhang/OPE-Testing/assets/55336328/9c699718-6393-4596-b13a-a8bef8cd086c)
+
 
 2. **Execute RISE Test Script:** Run the command `python rise-test.py {token}`. This command initiates the opening of the Jupyter Lab instance and captures a screenshot of the launcher page.
+![Screenshot 2023-11-27 at 15 11 20](https://github.com/YiqinZhang/OPE-Testing/assets/55336328/3a9a9cb2-4f89-4b08-8fe5-94be837e03ad)
 
-3. **Create and Capture Notebook File:** After clicking the Notebook launch icon, a new Jupyter Notebook file is created. We then take a screenshot for comparison purposes.
+    If you are using the Jupyter notebook version, named `run_rise_test.ipynb`, simply replace `{token}` with your specific token and then proceed to execute the cells within the notebook.
 
-4. **Activate and Document RISE Function:** The test proceeds to locate and double-click the RISE icon, triggering the RISE function. A screenshot is taken at this stage to document the functionality.
 
-5. **Test Fullscreen Feature:** The process includes searching for and activating the fullscreen button to display the slideshow in fullscreen mode.
+   ![Screenshot 2023-11-27 at 15 23 04](https://github.com/YiqinZhang/OPE-Testing/assets/55336328/577249e3-7c97-4344-8e86-0a7352e6d619)
+
+
+4. **Create and Capture Notebook File:** Following the simulated click on the Notebook launch icon, a new Jupyter Notebook file is automatically created.. We then take a screenshot for comparison purposes.
+![new_nb_screenshot](https://github.com/YiqinZhang/OPE-Testing/assets/55336328/78c9470a-eff9-4ec0-b3ab-94eaeaa7afbf)
+
+
+5. **Activate and Document RISE Function:** The test proceeds to locate and double-click the RISE icon, triggering the RISE function. A screenshot is taken at this stage to document the functionality.
+![rise_screenshot](https://github.com/YiqinZhang/OPE-Testing/assets/55336328/26f8a25b-6574-4ba3-9ddf-e341539e0c0a)
+
+
+
+6. **Test Fullscreen Feature:** The process includes searching for and activating the fullscreen button to display the slideshow in fullscreen mode.
 
    Successfully completing these steps and comparing the three screenshots without any discrepancies confirms that RISE is functioning  effectively within the Jupyter Lab environment.
+   
 
 #### Test on ROSA
 
