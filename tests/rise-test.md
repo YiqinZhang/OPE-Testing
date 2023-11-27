@@ -72,7 +72,19 @@ To effectively test RISE functionality within Jupyter Lab, our process involves 
 6. **Test Fullscreen Feature:** The process includes searching for and activating the fullscreen button to display the slideshow in fullscreen mode.
 
    Successfully completing these steps and comparing the three screenshots without any discrepancies confirms that RISE is functioning  effectively within the Jupyter Lab environment.
+![Screenshot 2023-11-27 at 16 43 12](https://github.com/YiqinZhang/OPE-Testing/assets/55336328/d703435e-541e-469a-b75c-45de0109f806)
    
+7.** Enhanced RISE Testing with Sample Slides  **
 
-#### Test on ROSA
+Generate sample slides containing text, images, and notes, separated by dividing lines through scripts. Utilize Selenium to automate the opening of these slides and their conversion into a slideshow format. Then, capture screenshots of the slideshow for comparison against predefined slide templates to assess the visual effects.
+
+![new_nb_screenshot 8](https://github.com/YiqinZhang/OPE-Testing/assets/55336328/fbcb0e1f-7386-4a28-a845-3ed87bac0b31)
+Sample notebook slides
+
+![rise_screenshot 8](https://github.com/YiqinZhang/OPE-Testing/assets/55336328/112d0594-2c81-4b01-ac23-f2e48f6a5bf6)
+Sample slideshow
+
+![Screenshot 2023-11-27 at 14 25 47](https://github.com/YiqinZhang/OPE-Testing/assets/55336328/224279d2-584f-425f-971b-cf619fdf6595)
+
+
 
