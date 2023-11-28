@@ -41,7 +41,6 @@ def take_screenshot(driver, filename):
 def test_rise_extension(token):
     driver = setup_driver()
     url = f"http://127.0.0.1:8888/lab?token={token}"
-
     try:
         driver.get(url)
         driver.implicitly_wait(45)
@@ -61,7 +60,6 @@ def test_rise_extension(token):
             print("Fullscreen button is functioning: ", is_fullscreen)
         else:
             print("Toolbar not found")
-
         print("RISE Extension is working!")
     except Exception as e:
         print(f"An error occurred during test: {e}")
@@ -69,6 +67,7 @@ def test_rise_extension(token):
         # Clean up
         driver.switch_to.window(driver.window_handles[0])
         driver.refresh()
+        WebDriverWait(driver, 100)
         driver.quit()
 
 if __name__ == "__main__":
