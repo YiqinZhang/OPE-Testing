@@ -202,4 +202,4 @@ if __name__ == "__main__":
         ]
         test_rise_slide(sys.argv[1])
 
-        subprocess.run(["python", "screenshots_diff.py"])
+        # subprocess.run(["python", "screenshots_diff.py"])

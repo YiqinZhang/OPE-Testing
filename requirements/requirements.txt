@@ -8,4 +8,3 @@ notebook
 nbconvert
 jupyterlab 
 nbclient
-
