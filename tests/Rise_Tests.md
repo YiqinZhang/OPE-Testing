@@ -78,3 +78,9 @@ To effectively test RISE functionality within Jupyter Lab, our process involves 
    _Sample slideshow_
 
    ![Screenshot 2023-11-27 at 14 25 47](https://github.com/YiqinZhang/OPE-Testing/assets/55336328/224279d2-584f-425f-971b-cf619fdf6595)
+
+#### Test with Git Action
+
+To ensure all necessary libraries and dependencies are included, update `tests/requirement.txt` and `base/pip_pkgs`. For instance, add libraries like `selenium`, `webdriver_manager`, and `nbformat` to `pip_pkgs`. This ensures they are automatically installed in the Docker container during initialization.
+
+<img width="655" alt="Screenshot 2023-11-29 at 19 28 54" src="https://github.com/YiqinZhang/OPE-Testing/assets/55336328/93b4c3a6-7a2f-4356-87b2-81009af3c4ff">
