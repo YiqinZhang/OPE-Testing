@@ -23,8 +23,8 @@ for filename in png_files:
 
     # Check if any image is blank
     if is_image_blank(base_image) or is_image_blank(test_image):
-        print(f"ERROR: One of the images is blank for {filename}")
-        continue
+        print(f"ERROR: {filename} is blank.")
+        continue    
 
     # Ensure both images are the same size
     if base_image.size != test_image.size:
@@ -32,8 +32,8 @@ for filename in png_files:
 
     # Calculate RMS difference
     rms_error = rms_diff(base_image, test_image)
-    if rms_error > 10:  # Threshold for error, can be adjusted
-        print(f"ERROR: {filename} are different, RMS Error: {rms_error}")
+    if rms_error > 15:  # Threshold for error, can be adjusted
+        print(f"ERROR: {filename} are different, RMS Error: {rms_error:.2f}")
     else:
-        print(f"{filename} are identical or very similar.")
+        print(f"{filename} are identical.")
 

@@ -4,6 +4,7 @@ rise-test: TOKEN ?= $(shell docker exec $(CONT_ID) jupyter lab list 2>&1 | grep 
 rise-test:
 	python3 test_terminal.py $(TOKEN)
 	python3 rise_test.py $(TOKEN)
+	python3 screenshots_diff.py
 	python3 rise_test_slide.py $(TOKEN)
 
 
